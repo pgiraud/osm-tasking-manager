@@ -18,8 +18,12 @@
         <link rel="stylesheet/less"
               href="${request.static_url('OSMTM:static/css/main.css')}?_cdsalt=1329416606709"
               text="text/css" media="screen" />
+        <link rel="stylesheet"
+              href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/base/jquery-ui.css"
+              text="text/css" />
         <script type="text/javascript" src="${request.static_url('OSMTM:static/js/less-1.2.2.min.js')}"></script>
-        <script type="text/javascript" src="${request.static_url('OSMTM:static/js/jquery-1.7.1.min.js')}"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
         <script type="text/javascript" src="${request.static_url('OSMTM:static/js/main.js')}?_cdsalt=1330087595137"></script>
         <script type="text/javascript" src="${request.static_url('OSMTM:static/js/showdown.js')}"></script>
         <script type="text/javascript"

@@ -56,6 +56,12 @@ html, body {
     background-image: linear-gradient(top, @startColor, @endColor); // The standard
     filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@startColor,@endColor)); // IE9 and down
   }
+  .horizontal(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
+    background-color: @color;
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, @start), color-stop(1, @stop));
+    background-image: -ms-linear-gradient(left, @start, @stop);
+    background-image: -moz-linear-gradient(top left, @start 0%, @stop 100%);
+  }
 }
 
 #feedback-button {
@@ -244,4 +250,14 @@ a {
 }
 .inline {
     display: inline-block;
+}
+#status_slider {
+    background: #ff0000;
+    background: -moz-linear-gradient(left, #ff0000 0%, #ff9900 50%, #ff9900 50%, #00ff00 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ff0000), color-stop(50%,#ff9900), color-stop(50%,#ff9900), color-stop(100%,#00ff00));
+    background: -webkit-linear-gradient(left, #ff0000 0%,#ff9900 50%,#ff9900 50%,#00ff00 100%);
+    background: -o-linear-gradient(left, #ff0000 0%,#ff9900 50%,#ff9900 50%,#00ff00 100%);
+    background: -ms-linear-gradient(left, #ff0000 0%,#ff9900 50%,#ff9900 50%,#00ff00 100%);
+    background: linear-gradient(left, #ff0000 0%,#ff9900 50%,#ff9900 50%,#00ff00 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#00ff00',GradientType=1 );
 }

@@ -66,6 +66,38 @@
                     </div>
                 </div>
             % endif
+            <div class="well">
+                <div class="control-group">
+                    <div id="status_slider" class="span1"></div>
+                    <script type="text/javascript">
+                        function setColor(value) {
+                            var color;
+                            switch (value) {
+                                case 0:
+                                    color = '#FF0000';
+                                    break;
+                                case 1:
+                                    color = '#FF9900';
+                                    break;
+                                case 2:
+                                color = '#00FF00';
+                                    break;
+                            }
+                            $('#status_slider').children('.ui-slider-handle').css("border-color", color);
+                        }
+                        $('#status_slider').slider({
+                            min: 0,
+                            max: 2,
+                            value: ${tile.checkin},
+                            animate: true,
+                            slide: function(event, ui) {
+                                setColor(ui.value);
+                            }
+                        });
+                        setColor(${tile.checkin});
+                    </script>
+                </div>
+            </div>
             <p>
                 Can't work on this task right now? No problem.
                 <a href="${request.route_url('task_unlock', job=tile.job_id, x=tile.x, y=tile.y)}" id="unlock">Unlock it!</a>. Otherwise, it will be automatically unlocked in <span id="countdown"></span> minutes.
