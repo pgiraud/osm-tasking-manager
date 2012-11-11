@@ -89,11 +89,12 @@ class TestHome(unittest.TestCase):
         testing.tearDown()
 
     def test_it(self):
+        _registerRoutes(self.config)
         from OSMTM.views.views import home 
         request = testing.DummyRequest()
         self.config.testing_securitypolicy(userid=u'foo')
         info = home(request)
-        self.assertEqual(len(info['jobs']), 1)
+        self.assertTrue(len(info['jobs']) > 1)
         self.assertEqual(info['admin'], False)
 
 class TestJobNew(unittest.TestCase):
@@ -175,7 +176,7 @@ class FunctionalTests(unittest.TestCase):
     def test_logout(self):
         headers = self.__remember('foo')
         res = self.testapp.get('/logout', headers=headers, status=302)
-        res2 = res.follow(headers=headers, status=200)
+        res2 = res.follow(status=200)
         self.failUnless('About The Tasking Manager' in res2.body)
 
     def test_authenticated(self):

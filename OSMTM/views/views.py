@@ -134,7 +134,7 @@ def home(request):
         current_users = session.query(distinct(Tile.username)) \
                 .filter(filter).all()
         current_users = [u[0] for u in current_users]
-        return dict(
+        r = dict(
             title=job.title,
             status=job.status,
             short_description=markdown(job.short_description),
@@ -145,16 +145,20 @@ def home(request):
             users=current_users,
             usersText="Currently working: %s" % ", ".join(current_users),
             url=request.route_url('job', job=job.id),
-            feature_url=request.route_url('job_feature', job=job.id),
-            archive_url=request.route_url('job_archive', job=job.id),
-            publish_url=request.route_url('job_publish', job=job.id),
-            edit_url=request.route_url('job_edit', job=job.id),
-            delete_url=request.route_url('job_delete', job=job.id),
             tags=[tag.tag for tag in job.tags],
             is_mine=job.id in [_job for _job in my_jobs],
             lon=centroid.x,
             lat=centroid.y
         )
+        if user.is_admin():
+            r.update(dict(
+                feature_url=request.route_url('job_feature', job=job.id),
+                archive_url=request.route_url('job_archive', job=job.id),
+                publish_url=request.route_url('job_publish', job=job.id),
+                edit_url=request.route_url('job_edit', job=job.id),
+                delete_url=request.route_url('job_delete', job=job.id),
+            ))
+        return r
 
     jobs = dumps([to_dict(job) for job in jobs], default=dthandler)
     
