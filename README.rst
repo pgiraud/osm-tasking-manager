@@ -17,7 +17,7 @@ OSMTM has a set of dependencies that you need to install first.
 
 On debian systems you can do::
 
-    sudo apt-get install build-essential protobuf-compiler libprotobuf-dev libgeos-dev python-dev
+    sudo apt-get install build-essential protobuf-compiler libprotobuf-dev libgeos-dev python-dev libevent-dev
 
 On OS X you can do::
 
