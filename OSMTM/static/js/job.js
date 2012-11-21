@@ -315,3 +315,17 @@ $(function(){
         task_time_left--;
     }, 1000);
 });
+
+// socketio
+$(document).ready(function() {
+    WEB_SOCKET_SWF_LOCATION = "/static/WebSocketMain.swf";
+    WEB_SOCKET_DEBUG = true;
+    var job_socket = io.connect('/job');
+    job_socket.on('change', function(e) {
+        alert("change");
+    });
+    job_socket.on('split', function(e) {
+        alert("split");
+    });
+    job_socket.emit("subscribe");
+});

@@ -31,7 +31,8 @@ requires = [
     'pyramid_fanstatic',
     'js.lesscss',
     'alembic',
-    'gevent-socketio'
+    'gevent-socketio',
+    'SocketIO_client'
     ]
 
 if sys.version_info[:3] < (2,5,0):

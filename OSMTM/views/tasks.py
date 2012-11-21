@@ -19,9 +19,12 @@ from datetime import datetime
 import random
 
 from pyramid.security import authenticated_userid
+from OSMTM.events import myBroadcaster
 
 import logging
 log = logging.getLogger(__file__)
+
+from socketIO_client import SocketIO as socketio_client
 
 @view_config(route_name='task', renderer='task.mako', permission='job',
         http_cache=0)
@@ -76,6 +79,7 @@ def done(request):
 
 @view_config(route_name='task_unlock', permission='job', renderer='task.mako')
 def unlock(request):
+    myBroadcaster.onChange.fire('something')
     job_id = request.matchdict['job']
     x = request.matchdict['x']
     y = request.matchdict['y']
@@ -88,6 +92,7 @@ def unlock(request):
     session.add(tile)
     return dict(job=tile.job,
                 prev_task=tile)
+
 
 def take(request):
     job_id = request.matchdict['job']
@@ -186,6 +191,7 @@ def split_tile(request):
     for tile in t:
         new_tiles.append(Feature(geometry=tile.to_polygon(),
             id=str(tile.x) + '-' + str(tile.y) + '-' + str(tile.zoom)))
+
     return dict(job=tile.job,
             split_id="-".join([x, y, zoom]),
             new_tiles=FeatureCollection(new_tiles))

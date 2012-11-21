@@ -68,6 +68,9 @@ def main(global_config, **settings):
             renderer='forbidden.mako',
             context='pyramid.exceptions.Forbidden')
 
+    # The socketio view configuration
+    config.add_route('job_socketio', 'socket.io/*remaining')
+
     config.add_renderer('geojson', GeoJSON())
 
     config.scan()

@@ -361,3 +361,37 @@ def update_user(user, checkin):
         user.done += 1
     if checkin == 2 or checkin == 3:
         user.validated += 1
+
+""" socket.io """
+from socketio.namespace import BaseNamespace
+from socketio import socketio_manage
+from socketio.mixins import BroadcastMixin
+from OSMTM.events import myBroadcaster
+
+class JobNamespace(BaseNamespace, BroadcastMixin):
+    def listener(self):
+        print "######## listener"
+        myBroadcaster.onChange += self.on_change
+
+    def on_subscribe(self, *args, **kwargs):
+        self.spawn(self.listener)
+
+    def on_connect(self, msg):
+        self.broadcast_event('connect', msg)
+
+    def on_change(self, msg):
+        print "on change"
+        self.broadcast_event('change', msg)
+
+    def on_split(self, msg):
+        print "#######"
+        print "split"
+        self.broadcast_event('split')
+
+from pyramid.response import Response
+@view_config(route_name='job_socketio')
+def socketio_service(request):
+    socketio_manage(request.environ,
+                    {'/job': JobNamespace},
+                    request=request)
+    return Response('')
