@@ -8,7 +8,7 @@ from math import floor, ceil, pi, atan, exp
 MAXRESOLUTION = 156543.0339
 
 # X/Y axis limit
-max = MAXRESOLUTION*256/2
+max_ = MAXRESOLUTION*256/2
 
 class TileBuilder(object):
     def __init__(self, parameter):
@@ -18,10 +18,10 @@ class TileBuilder(object):
         """
         creates a Shapely Polygon geometry representing tile indexed by (i,j) in OSMQA v2 with dimension a
         """
-        xmin = i*self.a-max
-        ymin = j*self.a-max
-        xmax = (i+1)*self.a-max
-        ymax = (j+1)*self.a-max
+        xmin = i*self.a-max_
+        ymin = j*self.a-max_
+        xmax = (i+1)*self.a-max_
+        ymax = (j+1)*self.a-max_
         if srs == 4326:
             xmin, ymin = transform_900913_to_4326(xmin, ymin)
             xmax, ymax = transform_900913_to_4326(xmax, ymax)
@@ -35,12 +35,12 @@ def get_tiles_in_geom(geom, z):
     ymax=geom.bounds[3]
 
     # tile size (in meters) at the required zoom level
-    step = max/(2**(z - 1))
+    step = max_/(2**(z - 1))
 
-    xminstep = int(floor((xmin+max)/step))
-    xmaxstep = int(ceil((xmax+max)/step))
-    yminstep = int(floor((ymin+max)/step))
-    ymaxstep = int(ceil((ymax+max)/step))
+    xminstep = int(floor((xmin+max_)/step))
+    xmaxstep = int(ceil((xmax+max_)/step))
+    yminstep = int(floor((ymin+max_)/step))
+    ymaxstep = int(ceil((ymax+max_)/step))
 
 
     tb = TileBuilder(step)
